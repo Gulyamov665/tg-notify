@@ -16,7 +16,7 @@ async def send_message_to_user(user_id: int, text: str):
 @dp.message(Command("start"))
 async def send_welcome(message: types.Message):
     user_id = message.chat.id
-    await message.reply(f" Ваш ID: {user_id}.")
+    await bot.send_message(f" Ваш ID: {user_id}.")
 
 
 # async def start():
@@ -25,7 +25,7 @@ async def send_welcome(message: types.Message):
 #     dp.message.register(send_welcome)
 #     try:
 #         await dp.start_polling(bot)
-        
+
 #     finally:
 #         await bot.session.close()
 
