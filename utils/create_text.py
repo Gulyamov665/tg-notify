@@ -32,9 +32,9 @@ def create_order(messages: dict):
     linear = "<b>————————————————</b>\n"
     info = ""
     for message in messages['items']:
-        line = f'<b>— {message["name"]} х {message['count']} от {message['price']} сум</b>\n\n'
+        line = f'<b>— {message["name"]} х {message["count"]} от {message["price"]} сум</b>\n\n'
         info += line
-    full = header + table_info + order + linear + info + linear + f"<b>💳 Итого: {messages['totalPrice']}</b>\n"
+    full = header + table_info + order + linear + info + linear + f"<b>💳 Итого: {messages["totalPrice"]}</b>\n"
     return full
 
 
