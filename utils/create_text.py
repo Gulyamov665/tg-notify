@@ -25,6 +25,7 @@ def create_text(message: dict):
 
 
 def create_order(messages: dict):
+    print(messages)
     table1 = messages["table"]
     totalPrice = messages["totalPrice"]
     items = messages["items"]

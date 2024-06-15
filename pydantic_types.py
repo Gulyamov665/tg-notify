@@ -44,6 +44,6 @@ class Items(BaseModel):
 
 
 class Order(BaseModel):
-    items: Items
+    items: List[Items]
     totalPrice: int
     table: str
