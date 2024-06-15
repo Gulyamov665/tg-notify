@@ -19,8 +19,8 @@ router = APIRouter()
 origins = ["*"]
 
 WEBHOOK_PATH = f"/bot/{TELEGRAM_BOT_TOKEN}"
-# WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
-WEBHOOK_URL = "https://03d5-84-54-72-48.ngrok-free.app" + WEBHOOK_PATH
+WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
+# WEBHOOK_URL = "https://03d5-84-54-72-48.ngrok-free.app" + WEBHOOK_PATH
 
 app.add_middleware(
     CORSMiddleware,
