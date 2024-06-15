@@ -10,7 +10,7 @@ dp = Dispatcher()
 
 
 async def send_message_to_user(user_id: int, text: str):
-    await bot.send_message(chat_id=user_id, text=text)
+    await bot.send_message(chat_id=user_id, text=text, parse_mode='HTML')
 
 
 @dp.message(Command("start"))

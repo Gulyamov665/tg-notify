@@ -35,3 +35,14 @@ class MessageRequest(BaseModel):
     executor_profile: ExecutorProfile
     observers_profile: Optional[List[ObserverProfile]] = None
     task_comment: Optional[List[Dict]] = None
+
+
+class Items(BaseModel):
+    name: str
+    price: int
+    count: int
+
+
+class Order(BaseModel):
+    totalPrice: int
+    table: str

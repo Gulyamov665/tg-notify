@@ -22,3 +22,19 @@ def create_text(message: dict):
 🚨 Приоритет : {priority if priority else None}
 ★ Статус : {status if status else None}
     """
+
+
+def create_order(messages: dict):
+    header = "<b>🟢 —Новый заказ—</b> \n\n"
+    table_info = f"<b>🍽 Стол: № {messages["table"]}</b>\n\n"
+    order = "<b>🧾  Состав заказа:</b>\n"
+    linear = "<b>————————————————</b>\n"
+    info = ""
+    for message in messages['items']:
+        line = f'<b>— {message["name"]} х {message['count']} от {message['price']} сум</b>\n\n'
+        info += line
+    full = header + table_info + order + linear + info + linear + f"<b>💳 Итого: {messages['totalPrice']}</b>\n"
+    return full
+
+
+

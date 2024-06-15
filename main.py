@@ -1,16 +1,16 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic_types import MessageRequest
+from pydantic_types import MessageRequest, Items, Order
 from aiogram import types
 from bot import send_message_to_user, bot, dp
-from utils.create_text import create_text
+from utils.create_text import create_text, create_order
 from config import TELEGRAM_BOT_TOKEN
 import logging
+from typing import List, Dict
 
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 
 app = FastAPI()
@@ -19,7 +19,8 @@ router = APIRouter()
 origins = ["*"]
 
 WEBHOOK_PATH = f"/bot/{TELEGRAM_BOT_TOKEN}"
-WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
+# WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
+WEBHOOK_URL = "https://03d5-84-54-72-48.ngrok-free.app" + WEBHOOK_PATH
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,7 +36,6 @@ async def on_startup():
     logger.info("Startup: Setting webhook.")
     print("Опять работа...")
     await bot.set_webhook(WEBHOOK_URL)
-    
 
 
 @app.post(WEBHOOK_PATH)
@@ -67,7 +67,15 @@ async def send_message_users(message: MessageRequest):
     return {"status": "messages sent"}
 
 
+@app.post("/dispatcher/")
+async def send_message_to_group(messages: Order):
+    text = create_order(messages.dict())
+    group_id = -974972939
+    await send_message_to_user(group_id, text)
+    return {"status": "Order created and message sended"}
+
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
