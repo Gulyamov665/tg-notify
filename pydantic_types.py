@@ -44,5 +44,6 @@ class Items(BaseModel):
 
 
 class Order(BaseModel):
+    items: Items
     totalPrice: int
     table: str
