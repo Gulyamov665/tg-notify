@@ -27,12 +27,13 @@ def create_text(message: dict):
 def create_order(messages: dict):
     table1 = messages["table"]
     totalPrice = messages["totalPrice"]
+    items = messages["items"]
     header = "<b>🟢 —Новый заказ—</b> \n\n"
     table_info = f"<b>🍽 Стол: № {table1}</b>\n\n"
     order = "<b>🧾  Состав заказа:</b>\n"
     linear = "<b>————————————————</b>\n"
     info = ""
-    for message in messages["items"]:
+    for message in items:
         name = message["name"]
         count = message["count"]
         price = message["price"]
