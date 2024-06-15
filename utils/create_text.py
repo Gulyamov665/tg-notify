@@ -26,16 +26,25 @@ def create_text(message: dict):
 
 def create_order(messages: dict):
     table1 = messages["table"]
+    totalPrice = messages["totalPrice"]
     header = "<b>🟢 —Новый заказ—</b> \n\n"
     table_info = f"<b>🍽 Стол: № {table1}</b>\n\n"
     order = "<b>🧾  Состав заказа:</b>\n"
     linear = "<b>————————————————</b>\n"
     info = ""
-    for message in messages['items']:
-        line = f'<b>— {message["name"]} х {message["count"]} от {message["price"]} сум</b>\n\n'
+    for message in messages["items"]:
+        name = message["name"]
+        count = message["count"]
+        price = message["price"]
+        line = f"<b>— {name} х {count} от {price} сум</b>\n\n"
         info += line
-    full = header + table_info + order + linear + info + linear + f"<b>💳 Итого: {messages["totalPrice"]}</b>\n"
+    full = (
+        header
+        + table_info
+        + order
+        + linear
+        + info
+        + linear
+        + f"<b>💳 Итого: {totalPrice}</b>\n"
+    )
     return full
-
-
-
