@@ -47,3 +47,7 @@ class Order(BaseModel):
     items: List[Items]
     totalPrice: int
     table: str
+
+
+class WaiterCall(BaseModel):
+    table : str

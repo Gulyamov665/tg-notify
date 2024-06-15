@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic_types import MessageRequest, Items, Order
+from pydantic_types import MessageRequest, Order, WaiterCall
 from aiogram import types
 from bot import send_message_to_user, bot, dp
 from utils.create_text import create_text, create_order
@@ -20,7 +20,7 @@ origins = ["*"]
 
 WEBHOOK_PATH = f"/bot/{TELEGRAM_BOT_TOKEN}"
 WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
-# WEBHOOK_URL = "https://0c93-213-230-92-105.ngrok-free.app" + WEBHOOK_PATH
+# WEBHOOK_URL = "https://09e6-213-230-92-105.ngrok-free.app" + WEBHOOK_PATH
 
 app.add_middleware(
     CORSMiddleware,
@@ -73,6 +73,15 @@ async def send_message_to_group(messages: Order):
     group_id = -974972939
     await send_message_to_user(group_id, text)
     return {"status": "Order created and message sended"}
+
+
+@app.post("/waiterCall/")
+async def send_message_to_group(messages: WaiterCall):
+    message = messages.dict()["table"]
+    text = f"вызов официанта за стол  №{message}"
+    group_id = -974972939
+    await send_message_to_user(group_id, text)
+    return {"status": "message sended"}
 
 
 if __name__ == "__main__":
