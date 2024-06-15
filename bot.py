@@ -19,16 +19,16 @@ async def start(message: types.Message, bot: Bot):
     await bot.send_message(chat_id=user_id, text=f"Ваш id : {user_id}")
 
 
-# async def start():
-#     bot = Bot(token=TELEGRAM_BOT_TOKEN)
-#     dp = Dispatcher()
-#     dp.message.register(send_welcome)
-#     try:
-#         await dp.start_polling(bot)
+async def start():
+    bot = Bot(token=TELEGRAM_BOT_TOKEN)
+    dp = Dispatcher()
+    # dp.message.register(send_welcome)
+    try:
+        await dp.start_polling(bot)
 
-#     finally:
-#         await bot.session.close()
+    finally:
+        await bot.session.close()
 
 
-# if __name__ == "__main__":
-#     asyncio.run(start())
+if __name__ == "__main__":
+    asyncio.run(start())

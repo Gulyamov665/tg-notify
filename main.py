@@ -6,7 +6,6 @@ from bot import send_message_to_user, bot, dp
 from utils.create_text import create_text, create_order
 from config import TELEGRAM_BOT_TOKEN
 import logging
-from typing import List, Dict
 
 
 logging.basicConfig(level=logging.INFO)
@@ -34,8 +33,8 @@ app.add_middleware(
 @app.on_event("startup")
 async def on_startup():
     logger.info("Startup: Setting webhook.")
-    print("Опять работа...")
     await bot.set_webhook(WEBHOOK_URL)
+    print("Опять работа...")
 
 
 @app.post(WEBHOOK_PATH)
@@ -78,7 +77,7 @@ async def send_message_to_group(messages: Order):
 @app.post("/waiterCall/")
 async def send_message_to_group(messages: WaiterCall):
     message = messages.dict()["table"]
-    text = f"вызов официанта за стол  №{message}"
+    text = f"📲 вызов официанта за стол  №{message}"
     group_id = -974972939
     await send_message_to_user(group_id, text)
     return {"status": "message sended"}
