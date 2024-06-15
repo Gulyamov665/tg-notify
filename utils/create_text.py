@@ -25,9 +25,9 @@ def create_text(message: dict):
 
 
 def create_order(messages: dict):
-    table = messages["table"]
+    table1 = messages["table"]
     header = "<b>🟢 —Новый заказ—</b> \n\n"
-    table_info = f"<b>🍽 Стол: № {table}</b>\n\n"
+    table_info = f"<b>🍽 Стол: № {table1}</b>\n\n"
     order = "<b>🧾  Состав заказа:</b>\n"
     linear = "<b>————————————————</b>\n"
     info = ""
