@@ -18,8 +18,8 @@ router = APIRouter()
 origins = ["*"]
 
 WEBHOOK_PATH = f"/bot/{TELEGRAM_BOT_TOKEN}"
-WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
-# WEBHOOK_URL = "https://09e6-213-230-92-105.ngrok-free.app" + WEBHOOK_PATH
+# WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
+WEBHOOK_URL = "https://4ed5-84-54-82-236.ngrok-free.app" + WEBHOOK_PATH
 
 app.add_middleware(
     CORSMiddleware,
@@ -69,7 +69,7 @@ async def send_message_users(message: MessageRequest):
 @app.post("/dispatcher/")
 async def send_message_to_group(messages: Order):
     text = create_order(messages.dict())
-    group_id = -974972939
+    group_id = messages.dict()["chat_id"]
     await send_message_to_user(group_id, text)
     return {"status": "Order created and message sended"}
 
@@ -78,7 +78,7 @@ async def send_message_to_group(messages: Order):
 async def send_message_to_group(messages: WaiterCall):
     message = messages.dict()["table"]
     text = f"📲 вызов официанта за стол  №{message}"
-    group_id = -974972939
+    group_id = messages.dict()["chat_id"]
     await send_message_to_user(group_id, text)
     return {"status": "message sended"}
 

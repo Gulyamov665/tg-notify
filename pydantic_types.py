@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Extra
 from typing import List, Dict, Optional
 
 
@@ -47,7 +47,9 @@ class Order(BaseModel):
     items: List[Items]
     totalPrice: int
     table: str
+    chat_id: int
 
 
 class WaiterCall(BaseModel):
-    table : str
+    table: str
+    chat_id : int
