@@ -48,8 +48,9 @@ class Order(BaseModel):
     totalPrice: int
     table: str
     chat_id: int
+    availability: bool
 
 
 class WaiterCall(BaseModel):
     table: str
-    chat_id : int
+    chat_id: int

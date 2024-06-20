@@ -19,7 +19,7 @@ origins = ["*"]
 
 WEBHOOK_PATH = f"/bot/{TELEGRAM_BOT_TOKEN}"
 WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
-# WEBHOOK_URL = "https://4ed5-84-54-82-236.ngrok-free.app" + WEBHOOK_PATH
+# WEBHOOK_URL = "https://3bef-84-54-70-46.ngrok-free.app" + WEBHOOK_PATH
 
 app.add_middleware(
     CORSMiddleware,
@@ -68,10 +68,13 @@ async def send_message_users(message: MessageRequest):
 
 @app.post("/dispatcher/")
 async def send_message_to_group(messages: Order):
+    availability = messages.dict()["availability"]
     text = create_order(messages.dict())
     group_id = messages.dict()["chat_id"]
-    await send_message_to_user(group_id, text)
-    return {"status": "Order created and message sended"}
+    if availability:
+        await send_message_to_user(group_id, text)
+        return {"status": "Order created and message sended"}
+    return {"status": "Orders is not available in this vendor"}
 
 
 @app.post("/waiterCall/")
