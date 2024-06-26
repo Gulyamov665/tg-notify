@@ -54,3 +54,17 @@ class Order(BaseModel):
 class WaiterCall(BaseModel):
     table: str
     chat_id: int
+
+
+class ShopItems(BaseModel):
+    name: str
+    price: float
+    quantity: int
+
+
+class ShopOrder(BaseModel):
+    email: str
+    phone_number: str
+    username: str
+    chat_id: int
+    items: List[ShopItems]
