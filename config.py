@@ -1,2 +1,5 @@
 TELEGRAM_BOT_TOKEN = "7072322760:AAGrlOjG50GFOZ4cq37NOeI5gRByyuAIUok"
-NGROK_TUNNEL_URL = "https://7e87-213-230-86-123.ngrok-free.app"
+
+WEBHOOK_PATH = f"/bot/{TELEGRAM_BOT_TOKEN}"
+WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
+# WEBHOOK_URL = "https://b5c4-213-230-93-100.ngrok-free.app" + WEBHOOK_PATH
