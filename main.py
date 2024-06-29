@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-app = FastAPI()
+# app = FastAPI()
 router = APIRouter()
 
 origins = ["*"]
@@ -20,6 +20,22 @@ origins = ["*"]
 WEBHOOK_PATH = f"/bot/{TELEGRAM_BOT_TOKEN}"
 WEBHOOK_URL = "https://tg-notify-devteam-a9d6d4f8.koyeb.app" + WEBHOOK_PATH
 # WEBHOOK_URL = "https://5f91-84-54-82-236.ngrok-free.app" + WEBHOOK_PATH
+
+
+async def lifespan(app: FastAPI):
+    logger.info("Запуск: Установка вебхука.")
+    await bot.set_webhook(WEBHOOK_URL)
+    print("Опять работа...")
+
+    yield
+
+    logger.info("Завершение работы: Удаление вебхука и закрытие сессии бота.")
+    print("Нужно больше золото...")
+    await bot.delete_webhook()
+    await bot.session.close()
+
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,26 +46,11 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
-async def on_startup():
-    logger.info("Startup: Setting webhook.")
-    await bot.set_webhook(WEBHOOK_URL)
-    print("Опять работа...")
-
-
 @app.post(WEBHOOK_PATH)
 async def bot_webhook(update: dict):
     logger.info(f"Webhook received update: {update}")
     update = types.Update(**update)
     await dp.feed_update(bot, update)
-
-
-@app.on_event("shutdown")
-async def on_shutdown():
-    logger.info("Shutdown: Deleting webhook and closing bot session.")
-    print("Нужно больше золото...")
-    await bot.delete_webhook()
-    await bot.session.close()
 
 
 @app.post("/send_message/")

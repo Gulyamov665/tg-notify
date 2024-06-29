@@ -10,7 +10,7 @@ dp = Dispatcher()
 
 
 async def send_message_to_user(user_id: int, text: str):
-    await bot.send_message(chat_id=user_id, text=text, parse_mode='HTML')
+    await bot.send_message(chat_id=user_id, text=text, parse_mode="HTML")
 
 
 @dp.message(Command("start"))
@@ -22,7 +22,6 @@ async def start(message: types.Message, bot: Bot):
 async def start():
     bot = Bot(token=TELEGRAM_BOT_TOKEN)
     dp = Dispatcher()
-    # dp.message.register(send_welcome)
     try:
         await dp.start_polling(bot)
 
