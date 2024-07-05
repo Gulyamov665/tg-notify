@@ -55,14 +55,15 @@ def create_order(messages: dict):
 def create_shop_order(messages: dict):
     print(messages)
     username = messages["username"]
-    email = messages["email"]
-    phone = messages["phone_number"]
-    # totalPrice = messages["totalPrice"]
+    location = messages["orderLoc"]
+    totalPrice = messages["totalPrice"]
+    # color = messages["color"]
+    # size = messages["size"]
     items = messages["items"]
     header = "<b>🟢 —New Order—</b> \n\n"
     table_info = f"<b>👤 Customer name: {username}</b>\n\n"
-    email = f"<b>📨 Customer email: {email}</b>\n\n"
-    phone = f"<b>📞 Customer phone number: {phone}</b>\n\n"
+    location = f"<b>📍 Location: {location}</b>\n\n"
+    # phone = f"<b>📞 Customer phone number: {phone}</b>\n\n"
     order = "<b>🧾  Order's compound:</b>\n"
     linear = "<b>————————————————</b>\n"
     info = ""
@@ -70,17 +71,20 @@ def create_shop_order(messages: dict):
         name = message["name"]
         count = message["quantity"]
         price = message["price"]
-        line = f"<b>— {name} х {count} от {price} сум</b>\n\n"
-        info += line
+        color = message["color"]
+        size = message["size"]
+        line = f"🛒 <b>— {name} х {count} от {price} $</b>\n\n"
+        color = f"🌈 Color <b>— {color}</b>\n\n"
+        size = f"Size <b>— {size}</b>\n\n"
+        info += line + color + size
     full = (
         header
         + table_info
-        + email
-        + phone
         + order
         + linear
         + info
+        + location
         + linear
-        + f"<b>💳 Итого: {233000}</b>\n"
+        + f"<b>💸 Итого: {totalPrice}</b>\n"
     )
     return full

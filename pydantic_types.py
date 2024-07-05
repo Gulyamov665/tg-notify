@@ -60,11 +60,15 @@ class ShopItems(BaseModel):
     name: str
     price: float
     quantity: int
+    size: str
+    color: str
 
 
 class ShopOrder(BaseModel):
-    email: str
-    phone_number: str
+    # email: Optional[str]
+    # phone_number: str
     username: str
     chat_id: int
+    orderLoc: str
+    totalPrice: int
     items: List[ShopItems]
