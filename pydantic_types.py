@@ -75,7 +75,7 @@ class ShopOrder(BaseModel):
 
 
 class MondayPromo(BaseModel):
-    firstname: str
-    lastname: str
-    phone: int
+    firstname: Optional[str]
+    lastname: Optional[str]
+    phone: Optional[int]
     chat_id : int
