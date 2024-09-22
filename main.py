@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
-from pydantic_types import MessageRequest, ShopOrder
+from pydantic_types import MessageRequest, MondayPromo, ShopOrder
 from bot import send_message_to_user, bot
-from utils.create_text import create_text, create_shop_order
+from utils.create_text import create_text, create_shop_order, monday_promo
 from config import WEBHOOK_URL
 from api.views import router as aurora_router
 from api.webhook.webhook import router as webhook_router
@@ -61,7 +61,15 @@ async def send_message_to_group(messages: ShopOrder):
     return {"status": "message sended"}
 
 
+@app.post("/monday/")
+async def send_message_to_group(messages: MondayPromo):
+    text = monday_promo(messages.dict())
+    group_id = messages.dict()["chat_id"]
+    await send_message_to_user(group_id, text)
+    return {"status": "message sended"}
+
+
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

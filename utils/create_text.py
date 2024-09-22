@@ -25,7 +25,6 @@ def create_text(message: dict):
 
 
 def create_order(messages: dict):
-    print(messages)
     table1 = messages["table"]
     totalPrice = messages["totalPrice"]
     items = messages["items"]
@@ -53,7 +52,6 @@ def create_order(messages: dict):
 
 
 def create_shop_order(messages: dict):
-    print(messages)
     username = messages["username"]
     location = messages["orderLoc"]
     totalPrice = messages["totalPrice"]
@@ -87,4 +85,19 @@ def create_shop_order(messages: dict):
         + linear
         + f"<b>💸 Итого: {totalPrice}</b>\n"
     )
+    return full
+
+
+def monday_promo(messages: dict):
+    name = messages["firstname"]
+    lastname = messages["lastname"]
+    phone = messages["phone"]
+
+    header = "<b>👤 —New Request—</b> \n\n"
+    firstname = f"<b> Фамилия: {name}</b>\n\n"
+    lastname = f"<b> Имя: {lastname}</b>\n\n"
+    phone = f'<b> Номер: <a href="tel:{phone}">{phone}</a></b>\n\n'
+    linear = "<b>————————————————</b>\n"
+
+    full = header + firstname + lastname + phone + linear
     return full

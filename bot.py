@@ -17,17 +17,3 @@ async def send_message_to_user(user_id: int, text: str):
 async def start(message: types.Message, bot: Bot):
     user_id = message.chat.id
     await bot.send_message(chat_id=user_id, text=f"Ваш id : {user_id}")
-
-
-# async def start():
-#     bot = Bot(token=TELEGRAM_BOT_TOKEN)
-#     dp = Dispatcher()
-#     try:
-#         await dp.start_polling(bot)
-
-#     finally:
-#         await bot.session.close()
-
-
-# if __name__ == "__main__":
-#     asyncio.run(start())

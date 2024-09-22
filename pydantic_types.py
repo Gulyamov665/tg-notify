@@ -72,3 +72,10 @@ class ShopOrder(BaseModel):
     orderLoc: str
     totalPrice: int
     items: List[ShopItems]
+
+
+class MondayPromo(BaseModel):
+    firstname: str
+    lastname: str
+    phone: int
+    chat_id : int

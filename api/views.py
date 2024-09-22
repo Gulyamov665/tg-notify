@@ -24,3 +24,5 @@ async def send_message_to_group(messages: WaiterCall):
     group_id = messages.dict()["chat_id"]
     await send_message_to_user(group_id, text)
     return {"status": "message sended"}
+
+
