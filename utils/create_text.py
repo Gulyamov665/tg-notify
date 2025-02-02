@@ -101,3 +101,19 @@ def monday_promo(messages: dict):
 
     full = header + firstname + lastname + phone + linear
     return full
+
+
+def bon_bon_review(messages: dict):
+    name = messages.get("firstname", None)
+    lastname = messages.get("lastname", None)
+    phone = messages.get("phone", None)
+    comment = messages.get("comment", None)
+
+    header = "<b>👤 —Новый Отзыв—</b> \n\n"
+    firstname = f"<b> Фамилия: {name}</b>\n\n"
+    lastname = f"<b> Имя: {lastname}</b>\n\n"
+    phone = f'<b> Номер: <a href="tel:{phone}">{phone}</a></b>\n\n'
+    linear = "<b>————————————————</b>\n"
+
+    full = header + firstname + lastname + phone + linear + comment
+    return full

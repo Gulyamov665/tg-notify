@@ -79,3 +79,11 @@ class MondayPromo(BaseModel):
     lastname: Optional[str]
     phone: Optional[int]
     chat_id : int
+
+
+class BonBon(BaseModel):
+    firstname: Optional[str]
+    lastname: Optional[str]
+    phone: Optional[int]
+    comment: str
+    chat_id : int
