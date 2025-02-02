@@ -25,11 +25,11 @@ async def lifespan(app: FastAPI):
     await bot.session.close()
 
 
-fapp = FastAPI(default_response_class=ORJSONResponse, lifespan=lifespan)
-fapp.include_router(aurora_router, tags=["aurora-notification"])
-fapp.include_router(webhook_router, tags=["webhook"])
+app = FastAPI(default_response_class=ORJSONResponse, lifespan=lifespan)
+app.include_router(aurora_router, tags=["aurora-notification"])
+app.include_router(webhook_router, tags=["webhook"])
 
-fapp.add_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
@@ -38,7 +38,7 @@ fapp.add_middleware(
 )
 
 
-@fapp.post("/send_message/")
+@app.post("/send_message/")
 async def send_message_users(message: MessageRequest):
     text = create_text(message.dict())
     users_id = [user.chat_id for user in message.observers_profile]
@@ -52,7 +52,7 @@ async def send_message_users(message: MessageRequest):
     return {"status": "messages sent"}
 
 
-@fapp.post("/shop/")
+@app.post("/shop/")
 async def send_message_to_group(messages: ShopOrder):
     text = create_shop_order(messages.dict())
     group_id = messages.dict()["chat_id"]
@@ -60,7 +60,7 @@ async def send_message_to_group(messages: ShopOrder):
     return {"status": "message sended"}
 
 
-@fapp.post("/monday/")
+@app.post("/monday/")
 async def send_message_to_group(messages: MondayPromo):
     text = monday_promo(messages.dict())
     group_id = messages.dict()["chat_id"]
@@ -68,7 +68,7 @@ async def send_message_to_group(messages: MondayPromo):
     return {"status": "message sended"}
 
 
-@fapp.post("/bon/")
+@app.post("/bon/")
 async def send_message_to_group(messages: BonBon):
     text = bon_bon_review(messages.dict())
     group_id = messages.dict()["chat_id"]
@@ -79,4 +79,4 @@ async def send_message_to_group(messages: BonBon):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(fapp, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
