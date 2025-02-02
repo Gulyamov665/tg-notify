@@ -71,9 +71,9 @@ async def send_message_to_group(messages: MondayPromo):
 
 @app.post("/bon/")
 async def send_message_to_group(messages: BonBon):
-    text = monday_promo(messages.dict())
+    text = bon_bon_review(messages.dict())
     group_id = messages.dict()["chat_id"]
-    await bon_bon_review(group_id, text)
+    await send_message_to_user(group_id, text)
     return {"status": "message sended"}
 
 

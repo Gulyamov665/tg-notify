@@ -104,10 +104,10 @@ def monday_promo(messages: dict):
 
 
 def bon_bon_review(messages: dict):
-    name = messages["firstname"]
-    lastname = messages["lastname"]
-    phone = messages["phone"]
-    comment = messages["comment"]
+    name = messages.get("firstname", "Тайный покупатель")
+    lastname = messages.get("lastname", "Тайный покупатель")
+    phone = messages.get("phone", "+998(11)123-45-67")
+    comment = messages.get("comment", None)
 
     header = "<b>👤 —Новый Отзыв—</b> \n\n"
     firstname = f"<b> Фамилия: {name}</b>\n\n"
