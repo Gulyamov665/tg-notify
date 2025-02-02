@@ -84,6 +84,6 @@ class MondayPromo(BaseModel):
 class BonBon(BaseModel):
     firstname: Optional[str]
     lastname: Optional[str]
-    phone: Optional[int]
+    phone: Optional[str]
     comment: str
     chat_id : int
