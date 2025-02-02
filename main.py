@@ -7,30 +7,29 @@ from utils.create_text import create_text, create_shop_order, monday_promo, bon_
 from config import WEBHOOK_URL
 from api.views import router as aurora_router
 from api.webhook.webhook import router as webhook_router
-from settings import logger
 
 
 origins = ["*"]
 
 
 async def lifespan(app: FastAPI):
-    logger.info("Запуск: Установка вебхука.")
+    print("Запуск: Установка вебхука.")
     await bot.set_webhook(WEBHOOK_URL)
     print("Опять работа...")
 
     yield
 
-    logger.info("Завершение работы: Удаление вебхука и закрытие сессии бота.")
+    print("Завершение работы: Удаление вебхука и закрытие сессии бота.")
     print("Нужно больше золото...")
     await bot.delete_webhook()
     await bot.session.close()
 
 
-app = FastAPI(default_response_class=ORJSONResponse, lifespan=lifespan)
-app.include_router(aurora_router, tags=["aurora-notification"])
-app.include_router(webhook_router, tags=["webhook"])
+fapp = FastAPI(default_response_class=ORJSONResponse, lifespan=lifespan)
+fapp.include_router(aurora_router, tags=["aurora-notification"])
+fapp.include_router(webhook_router, tags=["webhook"])
 
-app.add_middleware(
+fapp.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
@@ -39,7 +38,7 @@ app.add_middleware(
 )
 
 
-@app.post("/send_message/")
+@fapp.post("/send_message/")
 async def send_message_users(message: MessageRequest):
     text = create_text(message.dict())
     users_id = [user.chat_id for user in message.observers_profile]
@@ -53,7 +52,7 @@ async def send_message_users(message: MessageRequest):
     return {"status": "messages sent"}
 
 
-@app.post("/shop/")
+@fapp.post("/shop/")
 async def send_message_to_group(messages: ShopOrder):
     text = create_shop_order(messages.dict())
     group_id = messages.dict()["chat_id"]
@@ -61,7 +60,7 @@ async def send_message_to_group(messages: ShopOrder):
     return {"status": "message sended"}
 
 
-@app.post("/monday/")
+@fapp.post("/monday/")
 async def send_message_to_group(messages: MondayPromo):
     text = monday_promo(messages.dict())
     group_id = messages.dict()["chat_id"]
@@ -69,7 +68,7 @@ async def send_message_to_group(messages: MondayPromo):
     return {"status": "message sended"}
 
 
-@app.post("/bon/")
+@fapp.post("/bon/")
 async def send_message_to_group(messages: BonBon):
     text = bon_bon_review(messages.dict())
     group_id = messages.dict()["chat_id"]
@@ -80,4 +79,4 @@ async def send_message_to_group(messages: BonBon):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(fapp, host="0.0.0.0", port=8000)

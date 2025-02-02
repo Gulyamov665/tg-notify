@@ -65,8 +65,6 @@ class ShopItems(BaseModel):
 
 
 class ShopOrder(BaseModel):
-    # email: Optional[str]
-    # phone_number: str
     username: str
     chat_id: int
     orderLoc: str
